@@ -27,16 +27,14 @@ public:
             search_result result = qvariant_cast<search_result>(index.data());
             size_t pos = 0;
             QRect padding(r);
-            padding.setWidth(30);
 
             auto b = painter->brush();
             auto p = painter->pen();
             painter->setBrush(QColor(60, 60, 60));
             painter->setPen(Qt::NoPen);
-            painter->drawRect(padding);
+            painter->drawRect(r);
             painter->setBrush(b);
             painter->setPen(p);
-            r.setX(padding.x() + padding.width());
 
             for (auto &it : result.offsets) {
                 painter->drawText(r, Qt::TextSingleLine,
@@ -71,7 +69,7 @@ public:
         if (index.data().canConvert<search_result>()) {
             search_result result = qvariant_cast<search_result>(index.data());
             int pixelsWide = 60 + fm.horizontalAdvance(QString::fromUtf8(result.s.c_str()));
-            int pixelsHigh = fm.height();
+            int pixelsHigh = fm.height() + 5;
             return { pixelsWide, pixelsHigh };
         } else {
             answer result = qvariant_cast<answer>(index.data());
